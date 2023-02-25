@@ -11,16 +11,6 @@ const supabaseUrl = "https://tghtmxvonwrxpqauhixi.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-//supabase storage setup
-
-// const supabaseStorageUrl =
-//     "https://tghtmxvonwrxpqauhixi.supabase.co/storage/v1";
-// const supabaseStorageKey = process.env.SUPABASE_STORAGE_KEY;
-// const storageClient = new StorageClient(supabaseStorageUrl, {
-//     apikey: supabaseStorageKey,
-//     Authorization: `Bearer ${supabaseStorageKey}`,
-// });
-
 //port setup
 const port = process.env.PORT;
 
