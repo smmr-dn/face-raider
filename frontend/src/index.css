@@ -2,6 +2,13 @@
 
 :root{
   font-family: 'Rubik', sans-serif;
-  align-items: center;
   height: 100%;
+  background-image: linear-gradient(to bottom right,#e3eeff, #dbfbf1, #fecbc5);
+}
+
+body{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  place-items: center;
 }

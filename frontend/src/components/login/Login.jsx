@@ -2,17 +2,27 @@ import React from "react";
 import './Login.css';
 
 const Login = () => {
-
     return (
-        <div className="loginForm w-full max-w-xs">
-            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Username
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+        <div className="loginBox">
+            <img src="./assets/face-icon.png"/>
+            <div className="container">
+                <h1>Welcome to Face Raider</h1>
+                
+                <div className="form-group">
+                    <h2>LOGIN</h2>
+                    <form className="form">
+                        <div className="form-inputs">
+                            <input className="text-input" type="text" placeholder="R"></input>
+                        </div>
+                        
+                        <div className="form-inputs">
+                            <input className="text-input" type="password" placeholder="Password"></input>
+                        </div>
+                        
+                    </form>
                 </div>
-            </form>
+            </div>
+            
         </div>
     )
 }
