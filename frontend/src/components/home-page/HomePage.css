@@ -1,1 +1,72 @@
-.
+.home-main {
+  min-height: 100vh;
+}
+.home-content {
+  text-align: center;
+}
+.navbar {
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.app-logo {
+  font-size: 2.6rem;
+  cursor: pointer;
+}
+.auth {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 2rem;
+}
+.auth li {
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.auth li:hover,
+.auth li:visited {
+  color: black;
+  cursor: pointer;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+}
+.btn {
+  padding: 1.2rem 2.4rem;
+  border-radius: 11px;
+  font-size: 2rem;
+  border: none;
+  background-color: #81b622;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn:hover {
+  background-color: #5a7f18;
+}
+.course-list {
+  margin-top: 20rem;
+  margin-bottom: 3rem;
+}
+.course-list label {
+  margin-bottom: 1rem;
+  display: block;
+  text-align: left;
+  font-size: 1.6rem;
+}
+.course-list select {
+  /* appearance: none; */
+  position: relative;
+}
+#select-course {
+  font-size: 2.4rem;
+  display: block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 11px;
+}
