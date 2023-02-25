@@ -2,8 +2,7 @@
 
 :root{
   font-family: 'Rubik', sans-serif;
-  height: 100%;
-  background-image: linear-gradient(to bottom right,#e3eeff, #dbfbf1, #fecbc5);
+  background-image: linear-gradient(#e3eeff, #dbfbf1, #fecbc5);
 }
 
 body{
