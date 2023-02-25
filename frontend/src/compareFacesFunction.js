@@ -1,7 +1,9 @@
 const API_KEY = "KUMABfeqGMtp5n89H3-F1yr14IYJZ1350";
 const requestURL = "https://faceapi.mxface.ai/api/v3/face/verify";
 
-const compareFaces = async () => {
+import { img1, img2 } from "./imageVars";
+
+export const compareFaces = async () => {
   const response = await fetch(requestURL, {
     method: "POST",
     headers: {

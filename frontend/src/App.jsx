@@ -1,9 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import { compareFaces } from "./compareFacesFunction";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -20,6 +21,15 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <button
+          onClick={() =>
+            compareFaces().then((data) => {
+              console.log(data);
+            })
+          }
+        >
+          Compare Faces
+        </button>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
@@ -28,7 +38,7 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
