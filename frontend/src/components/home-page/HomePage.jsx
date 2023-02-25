@@ -1,6 +1,18 @@
 import React from "react";
 import NavBar from "./NavBar";
+import "./HomePage.css";
+import AttendanceHome from "./AttendanceHome";
+import ScanOptions from "./ScanOptions";
+
 const HomePage = () => {
-  return <NavBar />;
+  return (
+    <div className="home-main">
+      <NavBar />
+      <div className="home-content">
+        <AttendanceHome />
+        {/* <ScanOptions /> */}
+      </div>
+    </div>
+  );
 };
 export default HomePage;
