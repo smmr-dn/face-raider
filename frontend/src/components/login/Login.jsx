@@ -18,8 +18,10 @@ const Login = () => {
                         <div className="form-inputs">
                             <input className="text-input" type="password" placeholder="Password"></input>
                         </div>
-                        
                     </form>
+                </div>
+                <div className="button">
+                    <button className="button-17" type="submit">LOGIN</button>
                 </div>
             </div>
             
