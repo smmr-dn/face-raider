@@ -3,7 +3,7 @@ import './Login.css';
 
 const Login = () => {
     return (
-        <div className="loginBox">
+        <div className="formBox">
             <img src="./assets/face-icon.png"/>
             <div className="container">
                 <h1>Welcome to Face Raider</h1>
@@ -21,7 +21,7 @@ const Login = () => {
                     </form>
                 </div>
                 <div className="button">
-                    <button className="button-17" type="submit">LOGIN</button>
+                    <button className="button-81" type="submit">LOGIN</button>
                 </div>
             </div>
             

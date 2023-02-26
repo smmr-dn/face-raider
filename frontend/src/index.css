@@ -2,12 +2,12 @@
 
 :root{
   font-family: 'Rubik', sans-serif;
-  background-image: linear-gradient(#e3eeff, #dbfbf1, #fecbc5);
+  height: 100%
 }
 
 body {
+  margin: 0;
   height: 100%;
-  width: 100%;
   display: flex;
   place-items: center;
 }
