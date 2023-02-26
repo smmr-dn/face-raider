@@ -6,7 +6,7 @@ const ScanOptions = () => {
     <div className="home-container">
       <div className="scan-options">
         <label for="R-number">Enter Your R Number</label>
-        <div className="R-number-container no-outline">
+        <div className="R-number-container">
           <p className="R">R</p>
           <input
             id="R-number"
@@ -17,8 +17,8 @@ const ScanOptions = () => {
         </div>
       </div>
       <div className="scan-option-btn-container">
-        <button className="btn">Scan Your Face</button>
-        <button className="btn">Scan Barcode</button>
+        <button className=" btn btn-full ">Scan Your Face</button>
+        <button className="btn btn-outline">Scan Barcode</button>
       </div>
     </div>
   );
