@@ -27,7 +27,7 @@ app.get("/", async (req, res) => {
 // GET Requests
 app.get("/getUser", async (req, res) => {
     res.send(
-        await supabase.from("Users").select("*").eq("email", req.query.email)
+        await supabase.from("Users").select("*").eq("email", req.body.email)
     );
 });
 
@@ -109,7 +109,7 @@ app.post("/register", async (req, res) => {
                 last_name: req.body.last_name,
                 r_number: req.body.r_number,
                 email: req.body.email,
-                picture_path: req.body.image,
+                picture_path: req.body.image.slice(23),
             },
         ]);
 
@@ -129,8 +129,8 @@ app.post("/joinCourse", async (req, res) => {
     res.send(
         await supabase.from("PeopleInCourse").insert([
             {
-                user_id: req.query.user_id,
-                course_id: req.query.course_id,
+                user_id: req.body.user_id,
+                course_id: req.body.course_id,
             },
         ])
     );
@@ -140,7 +140,7 @@ app.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
-        .eq("email", req.body.email);
+        .eq("r_number", req.body.r_number);
 
     const response = await fetch(process.env.MXFACE_REQ_URL, {
         method: "POST",
@@ -149,8 +149,8 @@ app.post("/checkIn", async (req, res) => {
             subscriptionkey: process.env.MXFACE_KEY,
         },
         body: JSON.stringify({
-            encoded_image1: req.body.image1,
-            encoded_image2: req.body.image2,
+            encoded_image1: userId.data[0].picture_path,
+            encoded_image2: req.body.image2.slice(23),
         }),
     });
 
