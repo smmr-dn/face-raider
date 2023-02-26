@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.8.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "swagger-jsdoc": "^6.2.8"
   }
 }
