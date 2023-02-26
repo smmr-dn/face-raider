@@ -7,7 +7,6 @@ import ScanOptions from "./ScanOptions";
 const HomePage = () => {
   return (
     <div className="home-main">
-      <NavBar />
       <div className="home-content">
         <AttendanceHome />
         <ScanOptions />

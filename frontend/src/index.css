@@ -18,9 +18,12 @@ html {
   line-height: 1;
   font-weight: 400;
   color: #555;
+
 }
 
 body {
   place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
