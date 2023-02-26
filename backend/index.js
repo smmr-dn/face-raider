@@ -77,7 +77,7 @@ app.post("/checkIn", async (req, res) => {
         .select("*")
         .eq("email", user.body.email);
 
-    const response = await fetch(requestURL, {
+    const response = await fetch(process.env.MXFACE_REQ_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
