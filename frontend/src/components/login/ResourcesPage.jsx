@@ -1,27 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-//Need to know whether user is normal or the prof. If it's the prof they should be able to add things to this page
-const ResourcesPage = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [canUpload, setCanUpload] = useState(false);
+const ResourcesPage = ({ courseId }) => {
+  const [files, setFiles] = useState(null);
+  const [error, setError] = useState(null);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setCanUpload(true);
-  };
+  useEffect(() => {
+    const fetchCourseFiles = async () => {
+      const requestUrl = `http://localhost:5000/getCourseFiles?course_id=${courseId}`;
+      try {
+        const response = await fetch(requestUrl, {
+          method: "GET",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch course files");
+        }
+        const data = await response.json();
+        setFiles(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-  //fire API request to supabase
-  const handleSubmission = (event) => {
-    console.log(selectedFile);
-  };
+    fetchCourseFiles();
+  }, [courseId]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <>
-      <input type="file" onChange={handleFileChange} />
-      {canUpload ? (
-        <button onClick={handleSubmission}>Upload File</button>
-      ) : (
+      <h1 style={{ marginBottom: "-10px" }}>Resources</h1>
+      {files === null ? (
         <></>
+      ) : (
+        <ul style={{ listStyle: "none", paddingLeft: "0" }}>
+          {files.map((item, number) => {
+            return (
+              <li key={number}>
+                <a
+                  href={item.link}
+                  style={{ fontSize: "25px", textAlign: "left" }}
+                >
+                  {item.file_name}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </>
   );
