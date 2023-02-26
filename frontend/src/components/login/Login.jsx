@@ -11,15 +11,16 @@ const Login = () => {
     e.preventDefault();
 
     const data = {email, password};
-
+    localStorage.setItem("email", email);
+    
     try {
         await axios.post("http://localhost:5000/login", data, {
             headers: {
                 "Content-Type": "application/json",
             }
-        }).then((data) => {
-            if(data){
-                
+        }).then((response) => {
+          
+            if(response){
                 window.location.href = '/';
             }
         });
@@ -42,6 +43,7 @@ const Login = () => {
             className="text-input"
             type="email"
             placeholder="TTU Email"
+            value={email} onChange={(e) => setEmail(e.target.value)}
           ></input>
         </div>
 
@@ -51,6 +53,7 @@ const Login = () => {
             className="text-input"
             type="password"
             placeholder="Password"
+            value={password} onChange={(e) => setPassword(e.target.value)}
           ></input>
         </div>
       </form>
