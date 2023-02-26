@@ -1,5 +1,5 @@
 import React from "react";
-import './Login.css';
+import "./Login.css";
 import logo from "../../assets/logo-icon.png";
 
 const Login = () => {
@@ -24,9 +24,24 @@ const Login = () => {
                 <div className="button">
                     <button className="button-81" id="submit-btn" type="submit">LOGIN</button>
                 </div>
-            
         </div>
-    )
-}
 
-export default Login
+        <div className="form-inputs">
+          <input
+            id="login-signup-input"
+            className="text-input"
+            type="password"
+            placeholder="Password"
+          ></input>
+        </div>
+      </form>
+      <div className="button">
+        <button className="button-81" type="submit">
+          LOGIN
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
