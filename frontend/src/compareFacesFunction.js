@@ -3,7 +3,7 @@ const requestURL = "https://faceapi.mxface.ai/api/v3/face/verify";
 
 import { img1, img2 } from "./imageVars";
 
-export const compareFaces = async () => {
+export const compareFaces = async ({ img1 = img1, img2 = img2 }) => {
   const response = await fetch(requestURL, {
     method: "POST",
     headers: {
