@@ -28,19 +28,19 @@ const Signup = () => {
                     <h2>SIGN UP</h2>
                     <form className="form">
                         <div className="form-inputs">
-                            <input className="text-input" type="text" placeholder="First name"></input>
+                            <input id="login-signup-input" className="text-input" type="text" placeholder="First name"></input>
                         </div>
                         <div className="form-inputs">
-                            <input className="text-input" type="text" placeholder="Last name"></input>
+                            <input id="login-signup-input" className="text-input" type="text" placeholder="Last name"></input>
                         </div>
                         <div className="form-inputs">
-                            <input className="text-input" type="text" placeholder="R number"></input>
+                            <input id="login-signup-input" className="text-input" type="text" placeholder="R number"></input>
                         </div>
                         <div className="form-inputs">
-                            <input className="text-input" type="text" placeholder="TTU Email"></input>
+                            <input id="login-signup-input" className="text-input" type="text" placeholder="TTU Email"></input>
                         </div>
                         <div className="form-inputs">
-                            <input className="text-input" type="password" placeholder="New Password"></input>
+                            <input id="login-signup-input" className="text-input" type="password" placeholder="New Password"></input>
                         </div>
                     </form>
                         {showWebcam &&

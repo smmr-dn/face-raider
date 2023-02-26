@@ -11,14 +11,14 @@ const Login = () => {
                 <h2>LOGIN</h2>
                     <form className="form">
                         <div className="form-inputs">
-                            <input className="text-input" type="text" placeholder="R"></input>
+                            <input id="login-signup-input" className="text-input" type="text" placeholder="R"></input>
                         </div>
                         <div className="form-inputs">
-                            <input className="text-input" type="email" placeholder="TTU Email"></input>
+                            <input id="login-signup-input" className="text-input" type="email" placeholder="TTU Email"></input>
                         </div>
                         
                         <div className="form-inputs">
-                            <input className="text-input" type="password" placeholder="Password"></input>
+                            <input id="login-signup-input" className="text-input" type="password" placeholder="Password"></input>
                         </div>
                     </form>
                 <div className="button">
