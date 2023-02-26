@@ -22,23 +22,21 @@ const NavBar = () => {
   
   return (
     <div className="navbar">
-      {/* <Link to="/"> */}
-      <Link to="/">
+      <Link className="auth-item" to="/">
         <div className="app-logo">
           <img className="logo-nav" src={logo} />
           <p className="app-name-nav">Face Raider</p>
         </div>
       </Link>
-      {/* </Link> */}
       <ul className="auth">
         <li>
-          {!userEmail && <Link to="/signup"> Register</Link>}
+          {!userEmail && <Link className="auth-item" to="/signup"> Register</Link>}
         </li>
         <li>
-          {!userEmail && <Link to="/login"> Login</Link>}
+          {!userEmail && <Link className="auth-item" to="/login"> Login</Link>}
         </li>
         <li>
-          {userEmail && <Link to="/account">Account</Link>}
+          {userEmail && <Link className="auth-item" to="/account">Account</Link>}
         </li>
         <li>
           {userEmail && <button className="auth" onClick={logOut}>Logout</button>}
