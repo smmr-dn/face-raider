@@ -1,8 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
-import { StorageClient } from "@supabase/storage-js";
 
 import dotenv from "dotenv";
 import express from "express";
+
+import cors from "cors";
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ const port = process.env.PORT;
 const app = express();
 
 app.use(express.json({ limit: "50mb" }));
+app.use(cors());
 
 app.get("/", async (req, res) => {
     res.send("Hello World");
