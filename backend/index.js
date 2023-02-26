@@ -24,14 +24,13 @@ app.get("/", async (req, res) => {
 
 // GET Requests
 app.get("/getUser", async (req, res) => {
-    res.send(await supabase.auth.getUser());
+    res.send(
+        await supabase.from("Users").select("*").eq("email", req.query.email)
+    );
 });
 
 // POST Requests
-
 app.post("/register", async (req, res) => {
-    //cut first
-
     //sign up the user for authentication
     let { data, error } = await supabase.auth.signUp(req.body);
 
@@ -62,21 +61,47 @@ app.post("/logout", async (req, res) => {
 });
 
 app.post("/joinCourse", async (req, res) => {
-    await supabase.from("PeopleInCourse").insert([
-        {
-            user_id: req.query.user_id,
-            course_id: req.query.course_id,
-        },
-    ]);
+    res.send(
+        await supabase.from("PeopleInCourse").insert([
+            {
+                user_id: req.query.user_id,
+                course_id: req.query.course_id,
+            },
+        ])
+    );
 });
 
 app.post("/checkIn", async (req, res) => {
-    await supabase.from("Verify").insert([
-        {
-            user_id: req.query.user_id,
-            verification_date: new Date(),
+    const userObj = await supabase
+        .from("Users")
+        .select("*")
+        .eq("email", user.body.email);
+
+    const response = await fetch(requestURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            subscriptionkey: process.env.MXFACE_KEY,
         },
-    ]);
+        body: JSON.stringify({
+            encoded_image1: req.body.image1,
+            encoded_image2: req.body.image2,
+        }),
+    });
+
+    //meaning it's a match!
+    if (response.matchResult == 0) res.send(false);
+    else {
+        //we create entry in verify table
+        await supabase.from("Verify").insert([
+            {
+                user_id: userObj.user_id,
+                verification_date: new Date(),
+            },
+        ]);
+
+        res.send(userObj);
+    }
 });
 
 app.listen(port, () => {
