@@ -16,7 +16,7 @@ const NavBar = () => {
   const logOut = () => {
     axios.post("http://localhost:5000/logout").then((response) =>{
       localStorage.removeItem("email");
-      window.location.reload(false);
+      window.location.href="/home";
     });
   }
   
