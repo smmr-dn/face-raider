@@ -5,6 +5,8 @@ import express from "express";
 
 import cors from "cors";
 
+import axios from "axios";
+
 dotenv.config();
 
 //supabase setup
@@ -19,7 +21,19 @@ const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use(cors());
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+    );
+    next();
+});
 
 app.get("/", async (req, res) => {
     res.send("Hello World");
@@ -141,33 +155,35 @@ app.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
-        .eq("r_number", req.body.r_number);
+        .eq("r_number", +req.body.r_number);
 
-    const response = await fetch(process.env.MXFACE_REQ_URL, {
-        method: "POST",
+    axios.post("https://faceapi.mxface.ai/api/v3/face/verify", req.body, {
         headers: {
             "Content-Type": "application/json",
             subscriptionkey: process.env.MXFACE_KEY,
-        },
-        body: JSON.stringify({
-            encoded_image1: userId.data[0].picture_path,
-            encoded_image2: req.body.image2.slice(23),
-        }),
-    });
+        }
+    }).then(function(response){
+        console.log(response);
+        res.send(response);
+    })
 
-    //meaning it's a match!
-    if (response.matchResult == 0) res.send(false);
-    else {
-        //we create entry in verify table
-        await supabase.from("Verify").insert([
-            {
-                user_id: userObj.user_id,
-                verification_date: new Date(),
-            },
-        ]);
+    // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
+    // else {
+    //     //we create entry in verify table
+    //     await supabase.from("Verify").insert([
+    //         {
+    //             user_id: userObj.user_id,
+    //             verification_date: new Date(),
+    //         },
+    //     ]);
 
-        res.send(userObj);
-    }
+    //     res.send(true);
+    // }
+});
+
+app.get("/getImage", async (req, res) => {
+    const path = await supabase.from("Users").select("picture_path").eq("r_number", +req.body.r_number);
+    res.send(path.data[0].picture_path);
 });
 
 app.listen(port, () => {

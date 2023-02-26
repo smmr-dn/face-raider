@@ -21,7 +21,7 @@ const Login = () => {
         }).then((response) => {
           
             if(response){
-                window.location.href = '/';
+                window.location.href = '/account';
             }
         });
     } catch (error) {

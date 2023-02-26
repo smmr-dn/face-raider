@@ -10,17 +10,23 @@ let courses = [
 ];
 
 const AttendanceHome = () => {
-  let navigate = useNavigate();
-  const routeChange = () => {
-    let path = "/scan-options";
-    navigate(path);
-  };
+
+  const [r_number, setRNumber] = React.useState("");
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    localStorage.setItem("r_number", r_number);
+    window.location.href = "/scan-options";
+  }
+
   return (
     <div className="home-container">
       <div className="face-raider app-logo">
         <img src={logo} />
         <p className="app-name-main">Face Raider</p>
       </div>
+      <form id="r-num form" onSubmit={handleSubmit}>
       <div className="scan-options">
         <label for="R-number">Enter Your R Number</label>
         <div className="R-number-container">
@@ -30,9 +36,11 @@ const AttendanceHome = () => {
             type="text"
             placeholder="--------"
             required
+            value={r_number} onChange={(e) => setRNumber(e.target.value)}
           ></input>
         </div>
       </div>
+      </form>
       <div className="course-list">
         <label for="select-course">Please select your course</label>
         <select id="select-course" required>
@@ -43,7 +51,7 @@ const AttendanceHome = () => {
         </select>
       </div>
 
-      <button className="btn btn-home-container" onClick={routeChange}>
+      <button className="btn btn-home-container" form="r-num form" type="submit">
         Check Attendance
       </button>
     </div>
