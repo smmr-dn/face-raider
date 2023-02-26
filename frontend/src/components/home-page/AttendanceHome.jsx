@@ -9,13 +9,14 @@ let courses = [
   { name: "CS4354 - Concepts of Database Systems", value: "CS4354" },
 ];
 
-let navigate = useNavigate();
-const routeChange = () => {
-  let path = "/scan-options";
-  navigate(path);
-};
-
 const AttendanceHome = () => {
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = "/scan-options";
+    navigate(path);
+  };
+
   return (
     <div className="home-container">
       <div className="face-raider app-logo">
