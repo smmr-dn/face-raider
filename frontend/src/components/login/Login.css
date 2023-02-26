@@ -85,4 +85,9 @@ button {
     margin: 5px;
     display: block;
     width: 33rem;
+    align-content: center;
+}
+
+img {
+  margin-bottom: 20px;
 }
