@@ -17,6 +17,7 @@ const port = process.env.PORT;
 
 const app = express();
 
+app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 
@@ -27,8 +28,71 @@ app.get("/", async (req, res) => {
 // GET Requests
 app.get("/getUser", async (req, res) => {
     res.send(
-        await supabase.from("Users").select("*").eq("email", req.query.email)
+        await supabase.from("Users").select("*").eq("email", req.body.email)
     );
+});
+
+app.get("/getCoursesByUser", async (req, res) => {
+    const userId = await supabase
+        .from("Users")
+        .select("id")
+        .eq("email", req.body.email);
+
+    const courses = await supabase
+        .from("PeopleInCourse")
+        .select(
+            `
+            Course (
+                course_name,
+                professor_name
+            )
+        `
+        )
+        .eq("user_id", userId.data[0].id);
+
+    res.send(courses.data);
+});
+
+app.get("/getPresentCount", async (req, res) => {
+    const userId = await supabase
+        .from("Users")
+        .select("id")
+        .eq("email", req.body.email);
+
+    const courseId = await supabase
+        .from("Course")
+        .select("id")
+        .eq("course_name", req.body.course_name);
+
+    const presentCount = await supabase
+        .from("Verify")
+        .select(`course_id`, { count: "exact", head: true })
+        .eq("user_id", userId.data[0].id)
+        .eq("is_present", true)
+        .eq("course_id", courseId.data[0].id);
+
+    res.send("" + presentCount.count);
+});
+
+app.get("/getAbsentCount", async (req, res) => {
+    const userId = await supabase
+        .from("Users")
+        .select("id")
+        .eq("email", req.body.email);
+
+    const courseId = await supabase
+        .from("Course")
+        .select("id")
+        .eq("course_name", req.body.course_name);
+
+    const absentCount = await supabase
+        .from("Verify")
+        .select(`course_id`, { count: "exact", head: true })
+        .eq("user_id", userId.data[0].id)
+        .eq("is_present", false)
+        .eq("course_id", courseId.data[0].id);
+
+    res.send("" + absentCount.count);
 });
 
 // POST Requests
@@ -46,7 +110,7 @@ app.post("/register", async (req, res) => {
                 last_name: req.body.last_name,
                 r_number: req.body.r_number,
                 email: req.body.email,
-                picture_path: req.body.image,
+                picture_path: req.body.image.slice(23),
             },
         ]);
 
@@ -66,8 +130,8 @@ app.post("/joinCourse", async (req, res) => {
     res.send(
         await supabase.from("PeopleInCourse").insert([
             {
-                user_id: req.query.user_id,
-                course_id: req.query.course_id,
+                user_id: req.body.user_id,
+                course_id: req.body.course_id,
             },
         ])
     );
@@ -77,7 +141,7 @@ app.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
-        .eq("email", user.body.email);
+        .eq("r_number", req.body.r_number);
 
     const response = await fetch(process.env.MXFACE_REQ_URL, {
         method: "POST",
@@ -86,8 +150,8 @@ app.post("/checkIn", async (req, res) => {
             subscriptionkey: process.env.MXFACE_KEY,
         },
         body: JSON.stringify({
-            encoded_image1: req.body.image1,
-            encoded_image2: req.body.image2,
+            encoded_image1: userId.data[0].picture_path,
+            encoded_image2: req.body.image2.slice(23),
         }),
     });
 
