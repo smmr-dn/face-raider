@@ -1,29 +1,29 @@
 import React from "react";
 import './Login.css';
+import logo from "../../assets/logo-icon.png";
 
 const Login = () => {
     return (
-        <div className="formBox">
-            <img src="./assets/face-icon.png"/>
-            <div className="container">
+    
+            <div className="form-container">
+                <img src={logo} />
                 <h1>Welcome to Face Raider</h1>
-                
-                <div className="form-group">
-                    <h2>LOGIN</h2>
+                <h2>LOGIN</h2>
                     <form className="form">
                         <div className="form-inputs">
                             <input className="text-input" type="text" placeholder="R"></input>
+                        </div>
+                        <div className="form-inputs">
+                            <input className="text-input" type="email" placeholder="TTU Email"></input>
                         </div>
                         
                         <div className="form-inputs">
                             <input className="text-input" type="password" placeholder="Password"></input>
                         </div>
                     </form>
-                </div>
                 <div className="button">
                     <button className="button-81" type="submit">LOGIN</button>
                 </div>
-            </div>
             
         </div>
     )

@@ -1,6 +1,7 @@
 import React from "react";
 import '../login/Login.css';
 import Webcam from 'react-webcam';
+import logo from "../../assets/logo-icon.png";
 
 const Signup = () => {
     const [showWebcam, setShowWebcam] = React.useState(false);
@@ -21,10 +22,10 @@ const Signup = () => {
     return (
         <div className="formBox">
             <div className="container">
-                <h1>Welcome to Face Raider</h1>
                 
+                <img src={logo}/>
                 <div className="form-group">
-                    <h2>SIGNUP</h2>
+                    <h2>SIGN UP</h2>
                     <form className="form">
                         <div className="form-inputs">
                             <input className="text-input" type="text" placeholder="First name"></input>

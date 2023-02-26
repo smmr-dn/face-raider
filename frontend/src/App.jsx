@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 import HomePage from "./components/home-page/Homepage";
 import Login from './components/login/Login'
@@ -12,7 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      <Login/>
+      <Signup/>
     </div>
   );
 }
