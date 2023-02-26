@@ -11,7 +11,8 @@ function App() {
 
   return (
     <div className="App">
-      <Account/>
+      <HomePage />
+      {/* <Account/> */}
     </div>
   );
 }
