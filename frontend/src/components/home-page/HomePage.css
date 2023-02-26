@@ -50,7 +50,7 @@
   gap: 2rem;
   font-size: 2rem;
   background-color: transparent;
-  border:none;
+  border: none;
   cursor: pointer;
 }
 .auth-item {
@@ -83,7 +83,7 @@
   font-size: 2.4rem;
 }
 .face-raider {
-  margin-top: 10rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 .btn {
@@ -105,6 +105,7 @@
 .course-list {
   margin-bottom: 3rem;
 }
+
 label {
   margin-bottom: 1rem;
   display: block;
@@ -123,17 +124,17 @@ label {
 /*------------ScanOptions--------------*/
 /*-------------------------------------*/
 .scan-options {
-  margin-top: 5rem;
   margin-bottom: 2rem;
 }
 .R-number-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 4px;
   padding: 0.8rem 1.6rem;
   border-radius: 11px;
-  border: 2px solid #555;
+  border: 1px solid #555;
+  width: 46.5rem;
 }
 .R {
   font-size: 2.4rem;

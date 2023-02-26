@@ -14,12 +14,24 @@ const AttendanceHome = () => {
   const routeChange = () => {
     let path = "/scan-options";
     navigate(path);
-};
+  };
   return (
     <div className="home-container">
       <div className="face-raider app-logo">
         <img src={logo} />
         <p className="app-name-main">Face Raider</p>
+      </div>
+      <div className="scan-options">
+        <label for="R-number">Enter Your R Number</label>
+        <div className="R-number-container">
+          <p className="R">R</p>
+          <input
+            id="R-number"
+            type="text"
+            placeholder="--------"
+            required
+          ></input>
+        </div>
       </div>
       <div className="course-list">
         <label for="select-course">Please select your course</label>
