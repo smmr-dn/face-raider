@@ -12,6 +12,31 @@
 }
 .app-name-main {
   font-size: 3.6rem;
+  transition: all 0.3s;
+}
+.app-name-main:hover,
+.app-name-nav:hover {
+  color: hsl(0, 0%, 28%);
+  animation: shine 6s linear;
+  background: linear-gradient(
+    to right,
+    hsl(0, 0%, 30%) 0,
+    hsl(0, 0%, 100%) 10%,
+    hsl(0, 0%, 30%) 20%
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60% {
+    background-position: 600px;
+  }
+  100% {
+    background-position: 600px;
+  }
 }
 .logo-nav {
   width: 6rem;
