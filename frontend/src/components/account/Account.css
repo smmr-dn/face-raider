@@ -1,0 +1,56 @@
+.user-account-page{
+    display: grid;
+    grid-template-columns: 1.5fr 3fr;
+}
+.vertical-tabs{
+    text-align: left;
+}
+.tab-content-box{
+    
+}
+
+
+/* .account-container {
+    flex-direction: grid;
+    grid-template-columns: 1fr, 3fr;
+    height: 100vh;
+} */
+/* .vertical-tabs { */
+    /* display: flex;
+    flex-direction: row;
+    height: 100vh; */
+/* } */
+  
+.tab-headers {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    list-style: none;
+    font-size: 2rem;
+    padding: 1.6rem 3.2rem;
+
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 120px;
+    margin-right: 20px;
+    background-color: bisque; */
+}
+
+.tab-header {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.tab-content {
+    flex: 1;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}

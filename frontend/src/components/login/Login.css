@@ -1,4 +1,5 @@
 .form-container {
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,6 +11,7 @@ h1 {
   color: #0d9ba3;
   margin-top: 20px;
   margin-bottom: 30px;
+  font-weight: 500;
 }
 
 h2 {
@@ -28,17 +30,17 @@ h2 {
 }
 
 #login-signup-input {
-  height: 2rem;
-  width: 30rem;
-  border-radius: 11px;
-  padding: 15px;
-  font-family: "Rubik";
-  font-size: 15px;
-  border: grey;
-  transition: 0.3s;
-  background-color: transparent;
-  box-shadow: 0px 2px 6px grey;
-  color: #0d9ba3;
+    height: 2rem;
+    width: 30rem;
+    border-radius: 11px;
+    padding: 15px;
+    font-family: 'Rubik';
+    font-size: 15px;
+    border: grey;
+    transition: 0.3s;
+    background-color: transparent;
+    box-shadow: 0px 1px 20px rgba(128, 128, 128, 0.3);
+    color: grey;
 }
 
 .form-group {
@@ -53,13 +55,13 @@ h2 {
   box-sizing: border-box;
   color: #0d9ba3;
   cursor: pointer;
-  font-family: "Basier circle", -apple-system, system-ui, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 2rem;
+
+  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.4rem;
+
   font-weight: 600;
   line-height: 1;
-  padding: 1rem 1.6rem;
+  padding: 1.4rem 2rem;
   text-align: center;
   text-decoration: none #0d172a solid;
   text-decoration-thickness: auto;
@@ -77,11 +79,28 @@ h2 {
 
 @media (min-width: 768px) {
   .button-81 {
-    font-size: 2rem;
-    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    padding: 1.4rem 2rem;
   }
 }
 
 button.button-81 {
-  margin: 5px;
+
+    margin: 5px;
 }
+
+.buttons {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#submit-btn {
+  background-color: coral;
+  color: white;
+}
+
+#submit-btn:hover{
+  background-color: rgb(194, 100, 65);
+  border: 2px solid rgb(194, 100, 65);
+}
+
