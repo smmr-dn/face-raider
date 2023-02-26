@@ -10,7 +10,7 @@ const HomePage = () => {
       <NavBar />
       <div className="home-content">
         <AttendanceHome />
-        {/* <ScanOptions /> */}
+        <ScanOptions />
       </div>
     </div>
   );
