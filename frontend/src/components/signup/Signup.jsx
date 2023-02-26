@@ -21,7 +21,7 @@ const Signup = () => {
 
     return (
         <div className="formBox">
-            <div className="container">
+            <div className="form-container">
                 
                 <img src={logo}/>
                 <div className="form-group">
@@ -43,22 +43,22 @@ const Signup = () => {
                             <input className="text-input" type="password" placeholder="New Password"></input>
                         </div>
                     </form>
+                        {showWebcam &&
+                            <Webcam
+                                audio={false}
+                                height={720}
+                                ref={webcamRef}
+                                screenshotFormat="image/jpeg"
+                                width={700}
+                            />
+                        }
                 </div>
-                <div className="webcam">
-                    <button className="button-81" onClick={handleToggleWebcam}>
-                    {showWebcam ? 'Hide Camera' : 'Take a Picture'}</button>
-                    {showWebcam &&
-                        <Webcam
-                            audio={false}
-                            height={720}
-                            ref={webcamRef}
-                            screenshotFormat="image/jpeg"
-                            width={700}
-                        />
-                    } 
-                    {showWebcam && <button className="button-81" onClick={capture}>Capture photo</button>}
-                    <button className="button-81" type="button" >SIGNUP</button>
-                </div>
+                <div className="buttons">
+                        <button className="button-81" onClick={handleToggleWebcam}>
+                        {showWebcam ? 'Hide Camera' : 'Take a Picture'}</button>
+                        {showWebcam && <button className="button-81" onClick={capture}>Capture photo</button>}
+                        <button className="button-81" id="submit-btn" type="button" >SIGNUP</button>
+                    </div>
             </div>
             
         </div>
