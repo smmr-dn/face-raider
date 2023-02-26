@@ -8,6 +8,7 @@ import NavBar from "./components/home-page/NavBar";
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import ScanOptions from "./components/home-page/ScanOptions";
+import Account from "./components/account/Account";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="signup" element={<Signup />}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="scan-options" element={<ScanOptions />}></Route>
+        <Route path="account" element={<Account/>}></Route>
       </Routes>
     </Router>
   </React.StrictMode>

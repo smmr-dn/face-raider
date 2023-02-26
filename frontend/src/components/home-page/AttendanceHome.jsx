@@ -14,7 +14,7 @@ const AttendanceHome = () => {
   const routeChange = () => {
     let path = "/scan-options";
     navigate(path);
-  };
+};
   return (
     <div className="home-container">
       <div className="face-raider app-logo">
