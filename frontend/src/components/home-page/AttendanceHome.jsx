@@ -1,7 +1,7 @@
 import React from "react";
 import "./HomePage.css";
 import logo from "../../assets/logo-icon.png";
-import { useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 let courses = [
   { name: "CS4352 - Operating Systems", value: "CS4352" },
@@ -9,13 +9,12 @@ let courses = [
   { name: "CS4354 - Concepts of Database Systems", value: "CS4354" },
 ];
 
-let navigate = useNavigate();
-const routeChange = () => {
-  let path = "/scan-options";
-  navigate(path);
-};
-
 const AttendanceHome = () => {
+  let navigate = useNavigate();
+    const routeChange = () => {
+      let path = "/scan-options";
+      navigate(path);
+  };
   return (
     <div className="home-container">
       <div className="face-raider app-logo">

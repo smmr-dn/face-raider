@@ -17,10 +17,9 @@ const Signup = () => {
   }, [webcamRef]);
 
   return (
-    <div className="formBox">
+    
       <div className="form-container">
-        <img src={logo} />
-        <div className="form-group">
+        
           <h2>SIGN UP</h2>
           <form className="form">
             <div className="form-inputs">
@@ -73,7 +72,7 @@ const Signup = () => {
               width={700}
             />
           )}
-        </div>
+
         <div className="buttons">
           <button className="button-81" onClick={handleToggleWebcam}>
             {showWebcam ? "Hide Camera" : "Take a Picture"}
@@ -88,7 +87,6 @@ const Signup = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

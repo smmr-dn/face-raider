@@ -9,7 +9,6 @@ const HomePage = () => {
     <div className="home-main">
       <div className="home-content">
         <AttendanceHome />
-        <ScanOptions />
       </div>
     </div>
   );
