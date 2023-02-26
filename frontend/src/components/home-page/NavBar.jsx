@@ -22,14 +22,12 @@ const NavBar = () => {
   
   return (
     <div className="navbar">
-      {/* <Link to="/"> */}
-      <Link to="/">
+      <Link className="auth-item" to="/">
         <div className="app-logo">
           <img className="logo-nav" src={logo} />
           <p className="app-name-nav">Face Raider</p>
         </div>
       </Link>
-      {/* </Link> */}
       <ul className="auth">
         <li>
           {!userEmail && <Link to="/signup"> Register</Link>}

@@ -53,12 +53,12 @@
   border:none;
   cursor: pointer;
 }
-.auth li {
+.auth-item {
   text-decoration: none;
   transition: all 0.3s;
+  color: #555;
 }
-.auth li:hover,
-.auth li:visited {
+.auth-item:hover {
   color: coral;
   cursor: pointer;
 }
