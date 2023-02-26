@@ -16,50 +16,24 @@ const Signup = () => {
     console.log(imageSrc);
   }, [webcamRef]);
 
-    return (
-        <div className="formBox">
-            <div className="form-container">
-                
-                <img src={logo}/>
-                <div className="form-group">
-                    <h2>SIGN UP</h2>
-                    <form className="form">
-                        <div className="form-inputs">
-                            <input id="login-signup-input" className="text-input" type="text" placeholder="First name"></input>
-                        </div>
-                        <div className="form-inputs">
-                            <input id="login-signup-input" className="text-input" type="text" placeholder="Last name"></input>
-                        </div>
-                        <div className="form-inputs">
-                            <input id="login-signup-input" className="text-input" type="text" placeholder="R number"></input>
-                        </div>
-                        <div className="form-inputs">
-                            <input id="login-signup-input" className="text-input" type="text" placeholder="TTU Email"></input>
-                        </div>
-                        <div className="form-inputs">
-                            <input id="login-signup-input" className="text-input" type="password" placeholder="New Password"></input>
-                        </div>
-                    </form>
-                        {showWebcam &&
-                            <Webcam
-                                audio={false}
-                                height={720}
-                                ref={webcamRef}
-                                screenshotFormat="image/jpeg"
-                                width={700}
-                            />
-                        }
-                </div>
-                <div className="buttons">
-                        <button className="button-81" onClick={handleToggleWebcam}>
-                        {showWebcam ? 'Hide Camera' : 'Take a Picture'}</button>
-                        {showWebcam && <button className="button-81" onClick={capture}>Capture photo</button>}
-                        <button className="button-81" id="submit-btn" type="button" >SIGNUP</button>
-                    </div>
-
+  return (
+    <div className="formBox">
+      <div className="form-container">
+        <img src={logo} />
+        <div className="form-group">
+          <h2>SIGN UP</h2>
+          <form className="form">
+            <div className="form-inputs">
+              <input
+                id="login-signup-input"
+                className="text-input"
+                type="text"
+                placeholder="First name"
+              ></input>
             </div>
             <div className="form-inputs">
               <input
+                id="login-signup-input"
                 className="text-input"
                 type="text"
                 placeholder="Last name"
@@ -67,6 +41,7 @@ const Signup = () => {
             </div>
             <div className="form-inputs">
               <input
+                id="login-signup-input"
                 className="text-input"
                 type="text"
                 placeholder="R number"
@@ -74,6 +49,7 @@ const Signup = () => {
             </div>
             <div className="form-inputs">
               <input
+                id="login-signup-input"
                 className="text-input"
                 type="text"
                 placeholder="TTU Email"
@@ -81,17 +57,13 @@ const Signup = () => {
             </div>
             <div className="form-inputs">
               <input
+                id="login-signup-input"
                 className="text-input"
                 type="password"
                 placeholder="New Password"
               ></input>
             </div>
           </form>
-        </div>
-        <div className="webcam">
-          <button className="button-81" onClick={handleToggleWebcam}>
-            {showWebcam ? "Hide Camera" : "Take a Picture"}
-          </button>
           {showWebcam && (
             <Webcam
               audio={false}
@@ -101,12 +73,17 @@ const Signup = () => {
               width={700}
             />
           )}
+        </div>
+        <div className="buttons">
+          <button className="button-81" onClick={handleToggleWebcam}>
+            {showWebcam ? "Hide Camera" : "Take a Picture"}
+          </button>
           {showWebcam && (
             <button className="button-81" onClick={capture}>
               Capture photo
             </button>
           )}
-          <button className="button-81" type="button">
+          <button className="button-81" id="submit-btn" type="button">
             SIGNUP
           </button>
         </div>
