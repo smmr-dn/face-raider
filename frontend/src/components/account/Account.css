@@ -1,1 +1,9 @@
-'
+.account-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.dashboard{
+    display:flex;
+    flex-direction: column;
+}
