@@ -30,13 +30,23 @@ const NavBar = () => {
       </Link>
       <ul className="auth">
         <li>
+          <Link className="auth-item" to="/signup">
+            {" "}
+            Register
+          </Link>
+        </li>
+        <li className="auth-item">
+          <Link className="auth-item" to="/login">
+            {" "}
+            Login
+          </Link>
           {!userEmail && <Link to="/signup"> Register</Link>}
         </li>
         <li>
-          {!userEmail && <Link to="/login"> Login</Link>}
+          {!userEmail && <Link className="auth-item" to="/login"> Login</Link>}
         </li>
         <li>
-          {userEmail && <Link to="/account">Account</Link>}
+          {userEmail && <Link className="auth-item" to="/account">Account</Link>}
         </li>
         <li>
           {userEmail && <button className="auth" onClick={logOut}>Logout</button>}
