@@ -142,15 +142,15 @@ app.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
-        .eq("r_number", req.body.r_number);
+        .eq("r_number", +req.body.r_number);
 
     const image1 = userObj.data[0].picture_path;
-    const image2 = req.body.image.slice(23);
+    const image2 = req.body.image.slice[23];
     const key = process.env.MXFACE_KEY;
 
-    console.log("key is: " + key);
-    console.log("image1 is: " + image1.slice(0, 10));
-    console.log("image2 is: " + image2.slice(0, 10));
+    //console.log("key is: " + key);
+    //console.log("image1 is: " + image1.slice(0, 10));
+    //console.log("image2 is: " + image2);
 
     const response = await axios
         .post(
@@ -166,8 +166,6 @@ app.post("/checkIn", async (req, res) => {
                 },
             }
         )
-        .then((response) => response)
-        .catch((error) => error.response);
 
     res.send(response.data);
     // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);

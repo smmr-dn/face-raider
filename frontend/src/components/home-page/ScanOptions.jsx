@@ -9,6 +9,7 @@ const ScanOptions = () => {
   const [image, setPath] = React.useState("");
 
   const webcamRef = React.useRef(null);
+  const r_number = localStorage.getItem("r_number");
 
   function handleToggleWebcam() {
       setShowWebcam(!showWebcam);
@@ -20,14 +21,19 @@ const ScanOptions = () => {
 
   const verifyFace = async () => {
     
-    const imageSrc = await webcamRef.current.getScreenshot();
-    
-    const r_number = localStorage.getItem("r_number");
-    const data = {r_number, imageSrc};
+    const image = webcamRef.current.getScreenshot();
+    const data = {r_number, image};
 
-    const response = await axios.post("http://localhost:5000/checkIn", data)
-                                  .then(response => response)
-                                  .catch(error => error.response);
+    try {
+     const response = await axios.post("http://localhost:5000/checkIn", data).then((response) => {
+        response.data
+      });
+      
+      if(response.matchedResult == 1) console.log("It matches!");
+    } catch(error) {
+      console.log(error);
+    }
+    
 
   };
 
