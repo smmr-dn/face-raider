@@ -7,6 +7,9 @@ import { useState } from "react";
 const ScanOptions = () => {
   const [showWebcam, setShowWebcam] = React.useState(false);
   const [showpopup, setShowpopup] = React.useState(false);
+  const [image2, setPath] = React.useState("");
+  const r_number = localStorage.getItem("r_number");
+  const [picture_path, setPicPath] = React.useState(null);
 
   const webcamRef = React.useRef(null);
 
@@ -17,6 +20,7 @@ const ScanOptions = () => {
   function popup(){
     setShowpopup(!showpopup)
   }
+
   const capture = React.useCallback( async () => {
     const imageSrc = await webcamRef.current.getScreenshot();
     setPath(imageSrc);
@@ -32,28 +36,11 @@ const ScanOptions = () => {
 
     axios.get("http://localhost:5000/getImage", data).then((response) => {
       setPicPath(response);
-    });
+    })
 
-    const response = await fetch("https://faceapi.mxface.ai/api/v3/face/verify", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          "subscriptionkey": "KUMABfeqGMtp5n89H3-F1yr14IYJZ1350",
-      },
-      body: JSON.stringify({
-          encoded_image1: picture_path,
-          encoded_image2: image2.slice(23),
-      }),
-  });
-
-    // axios.post("http://localhost:5000/checkIn", data).then((response) => {
-        
-        if(response.matchedFace[0].matchResult == 1){
-          console.log("match!");
-          //window.location.href = '/account';
-        } else {
-          console.log("not match!");
-        }
+    axios.post("http://localhost:5000/checkIn", data).then((response) => {
+      console.log(response);
+    })
 
   }, [webcamRef]);
 
