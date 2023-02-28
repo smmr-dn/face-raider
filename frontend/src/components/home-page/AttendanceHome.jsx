@@ -11,7 +11,7 @@ let courses = [
 
 const AttendanceHome = () => {
 
-  const [r_number, setRNumber] = React.useState("");
+  const [r_number, setRNumber] = React.useState(0);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ const AttendanceHome = () => {
             type="text"
             placeholder="--------"
             required
-            value={r_number} onChange={(e) => setRNumber(e.target.value)}
+            onChange={(e) => setRNumber(e.target.value)}
           ></input>
         </div>
       </div>
