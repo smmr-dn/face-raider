@@ -166,8 +166,10 @@ app.post("/checkIn", async (req, res) => {
                 },
             }
         )
+        .then((response) => response.data.matchedFaces[0])
+        .catch((error) => error.response);
 
-    res.send(response.data);
+    res.send(response);
     // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
     // else {
     //     //we create entry in verify table
