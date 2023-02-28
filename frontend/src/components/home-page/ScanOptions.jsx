@@ -19,15 +19,19 @@ const ScanOptions = () => {
   }
 
   const verifyFace = async () => {
-    
-    const imageSrc = await webcamRef.current.getScreenshot();
-    
-    const r_number = localStorage.getItem("r_number");
-    const data = {r_number, imageSrc};
 
-    const response = await axios.post("http://localhost:5000/checkIn", data)
-                                  .then(response => response)
-                                  .catch(error => error.response);
+    const image = webcamRef.current.getScreenshot();
+    const r_number = localStorage.getItem("r_number");
+    const data = {r_number, image};
+
+    try{
+      const response = await axios.post("http://localhost:5000/checkIn", data)
+                                    .then(response => response.data)
+                                    .catch(error => error.response);
+
+      if(response.matchResult == 1) console.log("It matches!");
+      else console.log("not match");
+    }catch(error){console.log(error)};
 
   };
 

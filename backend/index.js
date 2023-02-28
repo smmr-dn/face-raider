@@ -148,10 +148,6 @@ app.post("/checkIn", async (req, res) => {
     const image2 = req.body.image.slice(23);
     const key = process.env.MXFACE_KEY;
 
-    console.log("key is: " + key);
-    console.log("image1 is: " + image1.slice(0, 10));
-    console.log("image2 is: " + image2.slice(0, 10));
-
     const response = await axios
         .post(
             process.env.MXFACE_REQ_URL,
@@ -166,10 +162,10 @@ app.post("/checkIn", async (req, res) => {
                 },
             }
         )
-        .then((response) => response)
+        .then((response) => response.data.matchedFaces[0])
         .catch((error) => error.response);
 
-    res.send(response.data);
+    res.send(response);
     // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
     // else {
     //     //we create entry in verify table
