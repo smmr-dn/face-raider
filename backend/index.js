@@ -22,19 +22,6 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-    );
-    next();
-});
-
 app.get("/", async (req, res) => {
     res.send("Hello World");
 });
@@ -155,18 +142,34 @@ app.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
-        .eq("r_number", +req.body.r_number);
+        .eq("r_number", req.body.r_number);
 
-    axios.post("https://faceapi.mxface.ai/api/v3/face/verify", req.body, {
-        headers: {
-            "Content-Type": "application/json",
-            subscriptionkey: process.env.MXFACE_KEY,
-        }
-    }).then(function(response){
-        console.log(response);
-        res.send(response);
-    })
+    const image1 = userObj.data[0].picture_path;
+    const image2 = req.body.image.slice(23);
+    const key = process.env.MXFACE_KEY;
 
+    console.log("key is: " + key);
+    console.log("image1 is: " + image1.slice(0, 10));
+    console.log("image2 is: " + image2.slice(0, 10));
+
+    const response = await axios
+        .post(
+            process.env.MXFACE_REQ_URL,
+            {
+                encoded_image1: image1,
+                encoded_image2: image2,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    subscriptionkey: key,
+                },
+            }
+        )
+        .then((response) => response)
+        .catch((error) => error.response);
+
+    res.send(response.data);
     // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
     // else {
     //     //we create entry in verify table
@@ -182,7 +185,10 @@ app.post("/checkIn", async (req, res) => {
 });
 
 app.get("/getImage", async (req, res) => {
-    const path = await supabase.from("Users").select("picture_path").eq("r_number", +req.body.r_number);
+    const path = await supabase
+        .from("Users")
+        .select("picture_path")
+        .eq("r_number", +req.body.r_number);
     res.send(path.data[0].picture_path);
 });
 
