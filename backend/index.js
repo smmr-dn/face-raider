@@ -5,6 +5,8 @@ import express from "express";
 
 import cors from "cors";
 
+import axios from "axios";
+
 dotenv.config();
 
 //supabase setup
@@ -19,7 +21,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
-app.use(cors());
 
 app.get("/", async (req, res) => {
     res.send("Hello World");
@@ -143,31 +144,48 @@ app.post("/checkIn", async (req, res) => {
         .select("*")
         .eq("r_number", req.body.r_number);
 
-    const response = await fetch(process.env.MXFACE_REQ_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            subscriptionkey: process.env.MXFACE_KEY,
-        },
-        body: JSON.stringify({
-            encoded_image1: userId.data[0].picture_path,
-            encoded_image2: req.body.image2.slice(23),
-        }),
-    });
+    const image1 = userObj.data[0].picture_path;
+    const image2 = req.body.image.slice(23);
+    const key = process.env.MXFACE_KEY;
 
-    //meaning it's a match!
-    if (response.matchResult == 0) res.send(false);
-    else {
-        //we create entry in verify table
-        await supabase.from("Verify").insert([
+    const response = await axios
+        .post(
+            process.env.MXFACE_REQ_URL,
             {
-                user_id: userObj.user_id,
-                verification_date: new Date(),
+                encoded_image1: image1,
+                encoded_image2: image2,
             },
-        ]);
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    subscriptionkey: key,
+                },
+            }
+        )
+        .then((response) => response.data.matchedFaces[0])
+        .catch((error) => error.response);
 
-        res.send(userObj);
-    }
+    res.send(response);
+    // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
+    // else {
+    //     //we create entry in verify table
+    //     await supabase.from("Verify").insert([
+    //         {
+    //             user_id: userObj.user_id,
+    //             verification_date: new Date(),
+    //         },
+    //     ]);
+
+    //     res.send(true);
+    // }
+});
+
+app.get("/getImage", async (req, res) => {
+    const path = await supabase
+        .from("Users")
+        .select("picture_path")
+        .eq("r_number", +req.body.r_number);
+    res.send(path.data[0].picture_path);
 });
 
 app.listen(port, () => {
