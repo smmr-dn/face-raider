@@ -1,60 +1,62 @@
-import { createClient } from "@supabase/supabase-js";
-
-import dotenv from "dotenv";
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Users:
+ *       type: object
+ *       required:
+ *         - r_number
+ *         - email
+ *         - picture_path
+ *       properties:
+ *         id:
+ *           type: int
+ *           description: Auto-generated unique identifier
+ *         first_name:
+ *           type: string
+ *           description: The first name of the user
+ *         last_name:
+ *           type: string
+ *           description: The last name of the user
+ *         r_number:
+ *           type: string
+ *           description: The unique R number of the user
+ *         email:
+ *           type: string
+ *           description: Associated email of the user
+ *         picture_path:
+ *           type: string
+ *           description: The base64 image of the user for face verification
+ *       example:
+ *         id: 1
+ *         first_name: Jane
+ *         last_name: Doe
+ *         r_number: 12345678
+ *         email: jane.doe@gmail.com
+ *         picture_path: /9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAA...
+ */
 import express from "express";
-
-import cors from "cors";
-
+import supabase from "../../database/DbInit.js";
 import axios from "axios";
+const router = express.Router();
 
-dotenv.config();
-
-//supabase setup
-const supabaseUrl = "https://tghtmxvonwrxpqauhixi.supabase.co";
-const supabaseKey = process.env.SUPABASE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-//port setup
-const port = process.env.PORT;
-
-const app = express();
-
-app.use(cors());
-app.use(express.json({ limit: "50mb" }));
-
-app.get("/", async (req, res) => {
-    res.send("Hello World");
+router.use((req, res, next) => {
+    next();
 });
 
-// GET Requests
-app.get("/getUser", async (req, res) => {
-    res.send(
-        await supabase.from("Users").select("*").eq("email", req.body.email)
-    );
+//GET request
+router.get("/getUser/:id", async (req, res) => {
+    const { data, error } = await supabase
+        .from("user")
+        .select("*")
+        .eq("id", req.params.id);
+
+    if (Object.keys(data).length === 0 || error) return res.sendStatus(403);
+
+    return res.send(data);
 });
 
-app.get("/getCoursesByUser", async (req, res) => {
-    const userId = await supabase
-        .from("Users")
-        .select("id")
-        .eq("email", req.body.email);
-
-    const courses = await supabase
-        .from("PeopleInCourse")
-        .select(
-            `
-            Course (
-                course_name,
-                professor_name
-            )
-        `
-        )
-        .eq("user_id", userId.data[0].id);
-
-    res.send(courses.data);
-});
-
-app.get("/getPresentCount", async (req, res) => {
+router.get("/getPresentCount", async (req, res) => {
     const userId = await supabase
         .from("Users")
         .select("id")
@@ -75,7 +77,7 @@ app.get("/getPresentCount", async (req, res) => {
     res.send("" + presentCount.count);
 });
 
-app.get("/getAbsentCount", async (req, res) => {
+router.get("/getAbsentCount", async (req, res) => {
     const userId = await supabase
         .from("Users")
         .select("id")
@@ -97,7 +99,7 @@ app.get("/getAbsentCount", async (req, res) => {
 });
 
 // POST Requests
-app.post("/register", async (req, res) => {
+router.post("/register", async (req, res) => {
     //sign up the user for authentication
     let { data, error } = await supabase.auth.signUp(req.body);
 
@@ -105,8 +107,9 @@ app.post("/register", async (req, res) => {
         res.send(error);
     } else {
         //add it with the picture path
-        const { data, error } = await supabase.from("Users").insert([
+        await supabase.from("Users").insert([
             {
+                id: data.user.id,
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 r_number: req.body.r_number,
@@ -115,19 +118,22 @@ app.post("/register", async (req, res) => {
             },
         ]);
 
-        res.send("done");
+        res.sendStatus(200);
     }
 });
 
-app.post("/login", async (req, res) => {
-    res.send(await supabase.auth.signInWithPassword(req.body));
+router.post("/login", async (req, res) => {
+    const { data, error } = await supabase.auth.signInWithPassword(req.body);
+
+    if (error) return res.send(error);
+    return res.send(data.session.user.id);
 });
 
-app.post("/logout", async (req, res) => {
+router.post("/logout", async (req, res) => {
     res.send(await supabase.auth.signOut());
 });
 
-app.post("/joinCourse", async (req, res) => {
+router.post("/joinCourse", async (req, res) => {
     res.send(
         await supabase.from("PeopleInCourse").insert([
             {
@@ -138,7 +144,7 @@ app.post("/joinCourse", async (req, res) => {
     );
 });
 
-app.post("/checkIn", async (req, res) => {
+router.post("/checkIn", async (req, res) => {
     const userObj = await supabase
         .from("Users")
         .select("*")
@@ -166,28 +172,6 @@ app.post("/checkIn", async (req, res) => {
         .catch((error) => error.response);
 
     res.send(response);
-    // if (response.json().matchedFaces[0].matchResult == 0) res.send(false);
-    // else {
-    //     //we create entry in verify table
-    //     await supabase.from("Verify").insert([
-    //         {
-    //             user_id: userObj.user_id,
-    //             verification_date: new Date(),
-    //         },
-    //     ]);
-
-    //     res.send(true);
-    // }
 });
 
-app.get("/getImage", async (req, res) => {
-    const path = await supabase
-        .from("Users")
-        .select("picture_path")
-        .eq("r_number", +req.body.r_number);
-    res.send(path.data[0].picture_path);
-});
-
-app.listen(port, () => {
-    console.log(`Working at port: ${port}`);
-});
+export default router;
